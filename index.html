@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Calc</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: left;
+      color: #333;
+      margin-top: 0;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    label {
+      margin: 10px 0 5px;
+      color: #555;
+    }
+    input[type="text"] {
+      width: 60px;
+      padding: 5px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="button"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 10px 0;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    input[type="button"]:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+    #loading {
+      display: none;
+      font-size: 14px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quick Entry Form</h1>
+  <form id="inputForm">
+    <label for="num1">Expected Blows Per Hour:</label>
+    <input type="text" id="num1" name="num1" placeholder="Enter expected blows per hour" inputmode="numeric" pattern="[0-9]*">
+    <label for="num2">Actual Blows Per Hour:</label>
+    <input type="text" id="num2" name="num2" placeholder="Enter actual blows per hour" inputmode="numeric" pattern="[0-9]*">
+    <label for="num3">Downtime Minutes:</label>
+    <input type="text" id="num3" name="num3" placeholder="Enter downtime minutes" inputmode="numeric" pattern="[0-9]*">
+    <input type="button" value="Calculate" onclick="calculate()">
+  </form>
+  <div id="loading">Calculating...</div>
+  <div id="result"></div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+
+    function calculate() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('result').innerHTML = '';
+      var expectedBlows = parseFloat(document.getElementById('num1').value);
+      var actualBlows = parseFloat(document.getElementById('num2').value);
+      var downtimeMinutes = parseFloat(document.getElementById('num3').value);
+      var efficiency = (actualBlows / expectedBlows) * 100;
+
+      setTimeout(function() {
+        var percentage = efficiency.toFixed(2) + '%';
+        document.getElementById('result').innerHTML = 'Result: ' + percentage;
+        document.getElementById('loading').style.display = 'none';
+      }, 500);
+    }
+  </script>
+</body>
+</html>
