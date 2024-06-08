@@ -70,7 +70,7 @@
     <input type="text" id="num3" name="num3" placeholder="Enter downtime minutes" inputmode="numeric" pattern="[0-9]*">
     <input type="button" value="Calculate" onclick="calculate()">
   </form>
-  <div id="loading" style="color: red;">Calculating...</div>
+  <div id="loading" style="color: red; display: none;">Calculating...</div>
   <div id="result" style="font-weight: bold;"></div>
   <script>
     if ('serviceWorker' in navigator) {
@@ -78,11 +78,22 @@
     }
 
     function calculate() {
+      var expectedBlows = document.getElementById('num1').value;
+      var actualBlows = document.getElementById('num2').value;
+      var downtimeMinutes = document.getElementById('num3').value;
+
+      if (expectedBlows === "" || actualBlows === "" || downtimeMinutes === "") {
+        alert("Please enter all values.");
+        return;
+      }
+
+      expectedBlows = parseFloat(expectedBlows);
+      actualBlows = parseFloat(actualBlows);
+      downtimeMinutes = parseFloat(downtimeMinutes);
+
       document.getElementById('loading').style.display = 'block';
       document.getElementById('result').innerHTML = '';
-      var expectedBlows = parseFloat(document.getElementById('num1').value);
-      var actualBlows = parseFloat(document.getElementById('num2').value);
-      var downtimeMinutes = parseFloat(document.getElementById('num3').value);
+
       var efficiency = (actualBlows / expectedBlows) * 100;
 
       setTimeout(function() {
