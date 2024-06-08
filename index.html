@@ -8,28 +8,33 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      background-color: #f0f0f0;
+      margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      overflow: hidden; /* Prevent scrolling */
     }
     h1 {
-      text-align: left;
+      text-align: center;
       color: #333;
-      margin-top: 0;
+      margin-top: 20px;
     }
     form {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      max-width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     label {
-      margin: 10px 0 5px;
+      display: block;
+      margin-top: 10px;
       color: #555;
     }
     input[type="text"] {
-      width: 60px;
-      padding: 5px;
-      margin-bottom: 10px;
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 4px;
     }
@@ -37,32 +42,25 @@
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 8px 16px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 14px;
-      margin: 10px 0;
+      padding: 10px 20px;
+      margin-top: 10px;
       cursor: pointer;
       border-radius: 4px;
+      width: 100%;
     }
     input[type="button"]:hover {
       background-color: #45a049;
     }
     #result {
+      text-align: center;
       margin-top: 10px;
       font-size: 16px;
       color: #333;
     }
-    #loading {
-      display: none;
-      font-size: 14px;
-      color: #999;
-    }
   </style>
 </head>
 <body>
-  <h1>Quick Entry Form</h1>
+  <h1>Quick Entry</h1> <!-- Modified heading -->
   <form id="inputForm">
     <label for="num1">Expected Blows Per Hour:</label>
     <input type="text" id="num1" name="num1" placeholder="Enter expected blows per hour" inputmode="numeric" pattern="[0-9]*">
@@ -72,8 +70,8 @@
     <input type="text" id="num3" name="num3" placeholder="Enter downtime minutes" inputmode="numeric" pattern="[0-9]*">
     <input type="button" value="Calculate" onclick="calculate()">
   </form>
-  <div id="loading">Calculating...</div>
-  <div id="result"></div>
+  <div id="loading" style="color: red;">Calculating...</div>
+  <div id="result" style="font-weight: bold;"></div>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js');
