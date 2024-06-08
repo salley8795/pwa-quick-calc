@@ -5,7 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Calc</title>
   <link rel="manifest" href="manifest.json">
-  <!-- Add any other necessary metadata here -->
+
+  <!-- Apple-specific meta tags -->
+  <link rel="apple-touch-icon" href="/icons/icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Quick Calc">
+
+  <!-- Additional metadata and styles -->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -81,7 +88,7 @@
     <input type="button" value="Calculate" onclick="calculate()">
   </form>
   <div id="result" style="font-weight: bold;"></div>
-  <div id="loading">Calculating...</div> <!-- Moved below the result -->
+  <div id="loading">Calculating...</div>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js')
