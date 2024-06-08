@@ -12,6 +12,7 @@
       margin: 0;
       padding: 0;
       overflow: hidden; /* Prevent scrolling */
+      font-size: 18px; /* Increased font size for better visibility */
     }
     h1 {
       text-align: center;
@@ -19,7 +20,7 @@
       margin-top: 20px;
     }
     form {
-      max-width: 300px;
+      max-width: 400px; /* Increased width for better visibility */
       margin: 0 auto;
       padding: 20px;
       background-color: #fff;
@@ -32,21 +33,23 @@
       color: #555;
     }
     input[type="text"] {
-      width: 60px; /* Set width to accommodate 3-4 digits */
+      width: 100px; /* Set width to accommodate shorter placeholders */
       padding: 10px;
       margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 4px;
+      font-size: 16px; /* Increased font size for better visibility */
     }
     input[type="button"] {
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 15px 20px; /* Increased padding for better visibility */
       margin-top: 10px;
       cursor: pointer;
       border-radius: 4px;
       width: 100%;
+      font-size: 16px; /* Increased font size for better visibility */
     }
     input[type="button"]:hover {
       background-color: #45a049;
@@ -54,8 +57,14 @@
     #result {
       text-align: center;
       margin-top: 10px;
-      font-size: 16px;
+      font-size: 18px; /* Increased font size for better visibility */
       color: #333;
+    }
+    #loading {
+      text-align: center;
+      font-size: 16px;
+      color: red;
+      display: none;
     }
   </style>
 </head>
@@ -63,15 +72,15 @@
   <h1>Quick Entry</h1> <!-- Modified heading -->
   <form id="inputForm">
     <label for="num1">Expected Blows Per Hour:</label>
-    <input type="text" id="num1" name="num1" placeholder="Enter expected blows per hour" inputmode="numeric" pattern="[0-9]*">
+    <input type="text" id="num1" name="num1" placeholder="Enter Expected" inputmode="numeric" pattern="[0-9]*">
     <label for="num2">Actual Blows Per Hour:</label>
-    <input type="text" id="num2" name="num2" placeholder="Enter actual blows per hour" inputmode="numeric" pattern="[0-9]*">
+    <input type="text" id="num2" name="num2" placeholder="Enter Actual" inputmode="numeric" pattern="[0-9]*">
     <label for="num3">Downtime Minutes:</label>
-    <input type="text" id="num3" name="num3" placeholder="Enter downtime minutes" inputmode="numeric" pattern="[0-9]*">
+    <input type="text" id="num3" name="num3" placeholder="Enter Downtime" inputmode="numeric" pattern="[0-9]*">
     <input type="button" value="Calculate" onclick="calculate()">
   </form>
-  <div id="loading" style="color: red; display: none;">Calculating...</div>
   <div id="result" style="font-weight: bold;"></div>
+  <div id="loading">Calculating...</div> <!-- Moved below the result -->
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js');
