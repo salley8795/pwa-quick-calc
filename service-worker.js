@@ -10,6 +10,8 @@ const resourcesToPrecache = [
   '/icons/apple-touch-icon.png', // Add your Apple touch icon here
   '/icons/apple-touch-icon-152x152.png', // Example sizes
   '/icons/apple-touch-icon-180x180.png',
+  '/icons/maskable-icon-192x192.png',
+  '/icons/maskable-icon-512x512.png',
   '/offline.html' // Add your fallback page here
 ];
 
@@ -19,6 +21,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(cacheName)
       .then(cache => {
+        console.log('Caching resources during install');
         return cache.addAll(resourcesToPrecache);
       })
       .catch(error => {
@@ -37,6 +40,7 @@ self.addEventListener('activate', event => {
         return Promise.all(
           cacheNames.map(cache => {
             if (!cacheWhitelist.includes(cache)) {
+              console.log('Deleting old cache:', cache);
               return caches.delete(cache);
             }
           })
@@ -52,8 +56,10 @@ self.addEventListener('fetch', event => {
     caches.match(event.request)
       .then(cachedResponse => {
         if (cachedResponse) {
+          console.log('Serving from cache:', event.request.url);
           return cachedResponse;
         }
+        console.log('Fetching from network:', event.request.url);
         return fetch(event.request).catch(error => {
           console.error('Fetch failed; returning offline page instead.', error);
           return caches.match('/offline.html'); // Return the fallback page
