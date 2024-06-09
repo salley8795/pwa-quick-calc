@@ -33,6 +33,11 @@
     }
   ],
   "scope": "/",
+  "scope_extensions": [
+    {
+      "origin": "https://example.com"
+    }
+  ],
   "description": "A quick and easy calculator for efficiency.",
   "orientation": "portrait-primary",
   "launch_handler": {
@@ -49,5 +54,6 @@
       "sizes": "640x480",
       "type": "image/png"
     }
-  ]
+  ],
+  "iarc_rating_id": "e12345"
 }

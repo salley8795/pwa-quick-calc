@@ -61,9 +61,34 @@ self.addEventListener('fetch', event => {
         }
         console.log('Fetching from network:', event.request.url);
         return fetch(event.request).catch(error => {
-          console.error('Fetch failed; returning offline page instead.', error);
+          console.error('Fetch failed; returning offline page instead:', error);
           return caches.match('/offline.html'); // Return the fallback page
         });
       })
+  );
+});
+
+// Register background sync
+self.addEventListener('sync', event => {
+  if (event.tag === 'sync-data') {
+    event.waitUntil(syncData());
+  }
+});
+
+function syncData() {
+  // Implement your data sync logic here
+  console.log('Syncing data...');
+  return Promise.resolve();
+}
+
+// Register push notifications
+self.addEventListener('push', event => {
+  const data = event.data.json();
+  const options = {
+    body: data.body,
+    icon: '/icons/icon-192x192.png'
+  };
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
   );
 });
