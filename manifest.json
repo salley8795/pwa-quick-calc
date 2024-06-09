@@ -55,5 +55,6 @@
       "type": "image/png"
     }
   ],
-  "iarc_rating_id": "e12345"
+  "iarc_rating_id": "e12345",
+  "lang": "en"
 }

@@ -75,4 +75,20 @@ self.addEventListener('sync', event => {
   }
 });
 
-function syncData
+function syncData() {
+  // Implement your data sync logic here
+  console.log('Syncing data...');
+  return Promise.resolve();
+}
+
+// Register push notifications
+self.addEventListener('push', event => {
+  const data = event.data.json();
+  const options = {
+    body: data.body,
+    icon: '/icons/icon-192x192.png'
+  };
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  );
+});
