@@ -20,4 +20,8 @@ self.addEventListener('install', event => {
   console.log('Service worker install event!');
   event.waitUntil(
     caches.open(cacheName)
+      .then(cache => {
+        console.log('Caching resources during install');
+        return cache.addAll(resourcesToPrecache);
+      })
       .
