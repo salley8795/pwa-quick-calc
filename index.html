@@ -23,7 +23,7 @@
       margin-top: 20px;
     }
     form {
-      max-width: 400px; /* Increased width for better form control */
+      max-width: 400px;
       margin: 0 auto;
       padding: 20px;
       background-color: #fff;
@@ -36,7 +36,7 @@
       margin-top: 10px;
     }
     input[type="text"] {
-      padding: 10px; /* Adjusted padding */
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
     }
@@ -44,7 +44,7 @@
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 12px 20px; /* Slightly larger padding */
+      padding: 12px 20px;
       cursor: pointer;
       border-radius: 4px;
       font-size: 18px;
@@ -56,6 +56,9 @@
       text-align: center;
       margin-top: 10px;
       color: #333;
+    }
+    #loading {
+      display: none;
     }
   </style>
 </head>
@@ -84,17 +87,22 @@
     }
 
     function calculate() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('result').textContent = '';
+
       var expectedBlows = parseFloat(document.getElementById('num1').value);
       var actualBlows = parseFloat(document.getElementById('num2').value);
       var downtimeMinutes = parseFloat(document.getElementById('num3').value) || 0;
 
       if (isNaN(expectedBlows) || isNaN(actualBlows)) {
         alert("Please enter valid numbers for Expected Blows and Actual Blows.");
+        document.getElementById('loading').style.display = 'none';
         return;
       }
 
       var efficiencyPercent = (actualBlows / (60 - downtimeMinutes)) * 60 / expectedBlows * 100;
       document.getElementById('result').textContent = "Efficiency: " + efficiencyPercent.toFixed(2) + "%";
+      document.getElementById('loading').style.display = 'none';
     }
   </script>
 </body>
