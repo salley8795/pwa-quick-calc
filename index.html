@@ -14,8 +14,11 @@
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
       margin: 0;
-      overflow: hidden;
-      font-size: 18px;
+      overflow: hidden; /* Prevent scrolling */
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     h1 {
       text-align: center;
@@ -24,7 +27,7 @@
     }
     form {
       max-width: 400px;
-      margin: 0 auto;
+      width: 100%;
       padding: 20px;
       background-color: #fff;
       border-radius: 8px;
@@ -63,8 +66,8 @@
   </style>
 </head>
 <body>
-  <h1>Quick Entry</h1>
   <form id="inputForm">
+    <h1>Quick Entry</h1>
     <label for="num1">Expected Blows Per Hour:</label>
     <input type="text" id="num1" name="num1" placeholder="Enter Expected">
     <label for="num2">Actual Blows Per Hour:</label>
@@ -72,9 +75,9 @@
     <label for="num3">Downtime Minutes:</label>
     <input type="text" id="num3" name="num3" placeholder="Enter Downtown">
     <input type="button" value="Calculate" onclick="calculate()">
+    <div id="result"></div>
+    <div id="loading">Calculating...</div>
   </form>
-  <div id="result"></div>
-  <div id="loading">Calculating...</div>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
