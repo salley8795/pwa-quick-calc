@@ -21,8 +21,6 @@
       align-items: center;
       justify-content: flex-start;
       touch-action: manipulation; /* Prevent zooming */
-      position: fixed; /* Prevent movement */
-      width: 100%; /* Ensure full width */
     }
     h1 {
       text-align: center;
@@ -40,7 +38,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: relative;
+      position: fixed; /* Ensure the form maintains its position */
+      top: 20px;
     }
     label, input[type="number"], input[type="button"] {
       display: block;
@@ -56,6 +55,11 @@
       font-size: 16px;
       height: 40px; /* Fixed height */
       position: relative;
+      outline: none; /* Remove focus outline */
+    }
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #4CAF50; /* Change border color on focus */
     }
     input[type="button"] {
       background-color: #4CAF50;
