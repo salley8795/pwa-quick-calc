@@ -14,8 +14,8 @@
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
       margin: 0;
-      overflow: hidden; /* Prevent scrolling */
       height: 100vh;
+      overflow: auto; /* Allow scrolling */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -39,7 +39,7 @@
       flex-direction: column;
       align-items: center;
       position: relative;
-      min-height: 50vh; /* Added min-height */
+      min-height: 50vh; /* Ensure enough height */
     }
     label, input[type="number"], input[type="button"] {
       display: block;
@@ -47,13 +47,13 @@
       margin-top: 10px;
     }
     input[type="number"] {
-      padding: 10px;
+      padding: 5px;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
       inputmode: numeric;
-      font-size: 16px;
-      height: 40px; /* Fixed height */
+      font-size: 14px;
+      height: 30px; /* Reduce height */
       position: relative;
       outline: none; /* Remove focus outline */
     }
@@ -65,10 +65,10 @@
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 10px 15px; /* Adjust padding */
       cursor: pointer;
       border-radius: 4px;
-      font-size: 18px;
+      font-size: 16px; /* Adjust font size */
     }
     input[type="button"]:hover {
       background-color: #45a049;
@@ -129,16 +129,6 @@
         document.getElementById('loading').style.display = 'none';
       }, 500); // Adjust delay as needed
     }
-
-    // Commented out the scrollIntoView code
-    // window.addEventListener('resize', () => {
-    //   const activeElement = document.activeElement;
-    //   if (activeElement.tagName === 'INPUT' && activeElement.type === 'number') {
-    //     setTimeout(() => {
-    //       activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    //     }, 300); // Adjust timing as needed
-    //   }
-    // });
   </script>
 </body>
 </html>
