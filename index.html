@@ -39,6 +39,7 @@
       flex-direction: column;
       align-items: center;
       position: relative;
+      min-height: 50vh; /* Added min-height */
     }
     label, input[type="number"], input[type="button"] {
       display: block;
@@ -46,16 +47,15 @@
       margin-top: 10px;
     }
     input[type="number"] {
-      padding: 5px;
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
       inputmode: numeric;
-      font-size: 14px;
-      height: 30px; /* Smaller height */
+      font-size: 16px;
+      height: 40px; /* Fixed height */
       position: relative;
       outline: none; /* Remove focus outline */
-      touch-action: none; /* Prevent default touch behavior */
     }
     input[type="number"]:focus {
       outline: none;
@@ -65,10 +65,10 @@
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 15px; /* Smaller padding */
+      padding: 12px 20px;
       cursor: pointer;
       border-radius: 4px;
-      font-size: 16px; /* Smaller font size */
+      font-size: 18px;
     }
     input[type="button"]:hover {
       background-color: #45a049;
@@ -123,8 +123,21 @@
 
       var efficiencyPercent = (actualBlows / (60 - downtimeMinutes)) * 60 / expectedBlows * 100;
       document.getElementById('result').textContent = "Efficiency: " + efficiencyPercent.toFixed(2) + "%";
-      document.getElementById('loading').style.display = 'none';
+      
+      // Simulate a delay for "Calculating..." message
+      setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+      }, 500); // Adjust delay as needed
     }
+
+    window.addEventListener('resize', () => {
+      const activeElement = document.activeElement;
+      if (activeElement.tagName === 'INPUT' && activeElement.type === 'number') {
+        setTimeout(() => {
+          activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300); // Adjust timing as needed
+      }
+    });
   </script>
 </body>
 </html>
