@@ -1,42 +1,44 @@
-const cacheName = 'quick-calc-cache-v1';
-const resourcesToPrecache = [
+const CACHE_NAME = 'pwa-cache-v1';
+const urlsToCache = [
   '/',
   '/index.html',
+  '/offline.html',
   '/manifest.json',
+  '/icons/icon-128x128.png',
+  '/icons/icon-144x144.png',
+  '/icons/icon-152x152.png',
+  '/icons/icon-180x180.png',
   '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
-  '/styles.css', // if you have a separate CSS file
-  '/script.js', // if you have a separate JS file
-  '/icons/apple-touch-icon.png', // Add your Apple touch icon here
-  '/icons/maskable-icon-192x192.png',
-  '/icons/maskable-icon-512x512.png',
-  '/offline.html' // Add your fallback page here
+  '/icons/icon-512x512.png'
 ];
 
 self.addEventListener('install', event => {
-  console.log('Service worker install event!');
   event.waitUntil(
-    caches.open(cacheName)
+    caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Caching resources during install');
-        return cache.addAll(resourcesToPrecache);
+        return cache.addAll(urlsToCache);
       })
   );
 });
 
-self.addEventListener('activate', event => {
-  console.log('Service worker activate event!');
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    fetch(event.request)
+      .catch(() => caches.match(event.request).then(response => response || caches.match('/offline.html')))
+  );
 });
 
-self.addEventListener('fetch', event => {
-  console.log('Fetch intercepted for:', event.request.url);
-  event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request);
-      })
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
   );
 });
