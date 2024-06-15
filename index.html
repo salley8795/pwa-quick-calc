@@ -4,123 +4,126 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Calc</title>
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
-
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
       margin: 0;
-      padding: 0;
-      overflow: hidden; /* Prevent scrolling */
-      font-size: 18px; /* Increased font size for better visibility */
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
     }
     h1 {
       text-align: center;
       color: #333;
-      margin-top: 20px;
+      margin-bottom: 20px;
     }
     form {
-      max-width: 400px; /* Increased width for better visibility */
-      margin: 0 auto;
+      width: 100%;
       padding: 20px;
       background-color: #fff;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
     }
-    label {
+    label, input[type="number"], input[type="button"] {
       display: block;
+      width: 100%;
       margin-top: 10px;
-      color: #555;
     }
-    input[type="text"] {
-      width: 100px; /* Set width to accommodate shorter placeholders */
+    input[type="number"] {
       padding: 10px;
-      margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 16px; /* Increased font size for better visibility */
+      box-sizing: border-box;
+      inputmode: numeric;
+      font-size: 16px;
+      height: 40px;
+      outline: none;
+    }
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #4CAF50;
     }
     input[type="button"] {
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 15px 20px; /* Increased padding for better visibility */
-      margin-top: 20px; /* Moved down by adding more margin */
+      padding: 12px 20px;
       cursor: pointer;
       border-radius: 4px;
-      width: 100%;
-      font-size: 16px; /* Increased font size for better visibility */
+      font-size: 18px;
     }
     input[type="button"]:hover {
       background-color: #45a049;
     }
-    #result {
+    #result, #loading {
       text-align: center;
       margin-top: 10px;
-      font-size: 18px; /* Increased font size for better visibility */
       color: #333;
     }
     #loading {
-      text-align: center;
-      font-size: 16px;
-      color: red;
       display: none;
     }
   </style>
 </head>
 <body>
-  <h1>Quick Entry</h1>
   <form id="inputForm">
+    <h1>Quick Entry</h1>
     <label for="num1">Expected Blows Per Hour:</label>
-    <input type="text" id="num1" name="num1" placeholder="Enter Expected" inputmode="numeric" pattern="[0-9]*">
+    <input type="number" id="num1" name="num1" placeholder="Enter Expected" inputmode="numeric">
     <label for="num2">Actual Blows Per Hour:</label>
-    <input type="text" id="num2" name="num2" placeholder="Enter Actual" inputmode="numeric" pattern="[0-9]*">
+    <input type="number" id="num2" name="num2" placeholder="Enter Actual" inputmode="numeric">
     <label for="num3">Downtime Minutes:</label>
-    <input type="text" id="num3" name="num3" placeholder="Enter Downtime" inputmode="numeric" pattern="[0-9]*">
+    <input type="number" id="num3" name="num3" placeholder="Enter Downtime" inputmode="numeric">
     <input type="button" value="Calculate" onclick="calculate()">
+    <div id="result"></div>
+    <div id="loading">Calculating...</div>
   </form>
-  <div id="result" style="font-weight: bold;"></div>
-  <div id="loading">Calculating...</div>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(function(registration) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then(registration => {
           console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(function(error) {
+        }).catch(error => {
           console.log('Service Worker registration failed:', error);
         });
+      });
     }
 
     function calculate() {
-      var expectedBlows = document.getElementById('num1').value;
-      var actualBlows = document.getElementById('num2').value;
-      var downtimeMinutes = document.getElementById('num3').value || 0; // Default to 0 if blank
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('result').textContent = '';
 
-      if (expectedBlows === "" || actualBlows === "") {
-        alert("Please enter values for Expected Blows and Actual Blows.");
+      var expectedBlows = parseFloat(document.getElementById('num1').value);
+      var actualBlows = parseFloat(document.getElementById('num2').value);
+      var downtimeMinutes = parseFloat(document.getElementById('num3').value) || 0;
+
+      if (isNaN(expectedBlows) || isNaN(actualBlows)) {
+        alert("Please enter valid numbers for Expected Blows and Actual Blows.");
+        document.getElementById('loading').style.display = 'none';
         return;
       }
 
-      expectedBlows = parseFloat(expectedBlows);
-      actualBlows = parseFloat(actualBlows);
-      downtimeMinutes = parseFloat(downtimeMinutes);
-
-      var effectiveOperatingTime = 60 - downtimeMinutes;
-      var adjustedExpectedProduction = (expectedBlows / 60) * effectiveOperatingTime;
-      var efficiency = (actualBlows / adjustedExpectedProduction) * 100;
-
-      document.getElementById('loading').style.display = 'block';
-      document.getElementById('result').innerHTML = '';
-
-      setTimeout(function() {
-        var percentage = efficiency.toFixed(2) + '%';
-        document.getElementById('result').innerHTML = 'Efficiency Percent: ' + percentage;
+      var efficiencyPercent = (actualBlows / (60 - downtimeMinutes)) * 60 / expectedBlows * 100;
+      document.getElementById('result').textContent = "Efficiency: " + efficiencyPercent.toFixed(2) + "%";
+      
+      setTimeout(() => {
         document.getElementById('loading').style.display = 'none';
       }, 500);
     }
