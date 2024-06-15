@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Calc</title>
-  <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
@@ -19,7 +19,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       touch-action: manipulation;
     }
     h1 {
@@ -37,7 +37,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 20px;
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
     }
     label, input[type="number"], input[type="button"] {
       display: block;
@@ -96,7 +98,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+        navigator.serviceWorker.register('./service-worker.js').then(registration => {
           console.log('Service Worker registered with scope:', registration.scope);
         }).catch(error => {
           console.log('Service Worker registration failed:', error);
@@ -125,19 +127,6 @@
         document.getElementById('loading').style.display = 'none';
       }, 500);
     }
-
-    // Prevent screen from moving up when focusing on any input
-    function preventScrollOnFocus(input) {
-      input.addEventListener('focus', function() {
-        console.log("Focused on input:", input.id); // Debugging log
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      });
-    }
-
-    preventScrollOnFocus(document.getElementById('num1'));
-    preventScrollOnFocus(document.getElementById('num2'));
-    preventScrollOnFocus(document.getElementById('num3'));
   </script>
 </body>
 </html>
