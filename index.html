@@ -125,6 +125,11 @@
         document.getElementById('loading').style.display = 'none';
       }, 500);
     }
+
+    // Prevent screen from moving up when focusing on the Downtime Minutes input
+    document.getElementById('num3').addEventListener('focus', function() {
+      window.scrollTo(0, 0);
+    });
   </script>
 </body>
 </html>
