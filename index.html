@@ -129,6 +129,7 @@
     // Prevent screen from moving up when focusing on any input
     function preventScrollOnFocus(input) {
       input.addEventListener('focus', function() {
+        console.log("Focused on input:", input.id); // Debugging log
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
       });
