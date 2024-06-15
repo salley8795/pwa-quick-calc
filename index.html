@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Calc</title>
-  <link rel="manifest" href="./manifest.json">
-  <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
@@ -19,7 +19,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start; /* Align form at the top */
       touch-action: manipulation;
     }
     h1 {
@@ -37,9 +37,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
+      margin-top: 20px; /* Add margin to the top of the form */
     }
     label, input[type="number"], input[type="button"] {
       display: block;
@@ -98,7 +96,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js').then(registration => {
+        navigator.serviceWorker.register('/service-worker.js').then(registration => {
           console.log('Service Worker registered with scope:', registration.scope);
         }).catch(error => {
           console.log('Service Worker registration failed:', error);
