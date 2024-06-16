@@ -3,7 +3,7 @@ const cacheFiles = [
   '/pwa-quick-calc/',
   '/pwa-quick-calc/index.html',
   '/pwa-quick-calc/quick-calc.html',
-  '/pwa-quick-calc/form2.html',
+  '/pwa-quick-calc/data-form-1.html',
   '/pwa-quick-calc/dashboard.html',
   '/pwa-quick-calc/manifest.json',
   '/pwa-quick-calc/icons/icon-128x128.png',
