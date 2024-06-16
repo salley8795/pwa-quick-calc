@@ -38,7 +38,7 @@
       flex-direction: column;
       align-items: center;
       position: fixed;
-      top: 10%; /* Adjusted to place the form at the top */
+      top: 10%;
       transform: translateY(-10%);
     }
     label, input[type="number"], input[type="button"] {
@@ -128,12 +128,14 @@
       }, 500);
     }
 
-    document.addEventListener('DOMContentLoaded', (event) => {
-      const downtimeInput = document.getElementById('num3');
-      downtimeInput.addEventListener('focus', (e) => {
-        e.preventDefault(); // Prevent default scroll behavior
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For other browsers
+    // Prevent form from moving on focus
+    const form = document.getElementById('inputForm');
+    const inputs = form.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => {
+      input.addEventListener('focus', () => {
+        form.style.position = 'fixed';
+        form.style.top = '10%';
+        form.style.transform = 'translateY(-10%)';
       });
     });
   </script>
