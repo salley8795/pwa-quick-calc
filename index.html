@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Calc</title>
-  <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json"> <!-- Correct the path -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png"> <!-- Correct the path -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
@@ -22,6 +22,11 @@
       justify-content: center;
       touch-action: manipulation;
     }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
     form {
       width: 100%;
       padding: 20px;
@@ -33,18 +38,23 @@
       flex-direction: column;
       align-items: center;
       position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 10%; /* Adjusted to place the form at the top */
+      transform: translateY(-10%);
+    }
+    label, input[type="number"], input[type="button"] {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
     }
     input[type="number"] {
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
+      inputmode: numeric;
       font-size: 16px;
       height: 40px;
       outline: none;
-      -webkit-appearance: none;
     }
     input[type="number"]:focus {
       outline: none;
@@ -88,7 +98,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+        navigator.serviceWorker.register('service-worker.js').then(registration => {
           console.log('Service Worker registered with scope:', registration.scope);
         }).catch(error => {
           console.log('Service Worker registration failed:', error);
@@ -117,19 +127,6 @@
         document.getElementById('loading').style.display = 'none';
       }, 500);
     }
-
-    document.addEventListener('DOMContentLoaded', (event) => {
-      const downtimeInput = document.getElementById('num3');
-      downtimeInput.addEventListener('focus', (e) => {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0; // For Safari
-      });
-
-      downtimeInput.addEventListener('blur', (e) => {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0; // For Safari
-      });
-    });
   </script>
 </body>
 </html>
