@@ -10,12 +10,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
   <style>
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
       margin: 0;
-      height: 100vh;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -131,6 +133,7 @@
     // Prevent form from moving on focus
     const form = document.querySelector('.form-container');
     const inputs = form.querySelectorAll('input[type="number"]');
+
     inputs.forEach(input => {
       input.addEventListener('focus', () => {
         form.style.position = 'fixed';
@@ -138,6 +141,22 @@
         form.style.transform = 'translateY(-10%)';
       });
     });
+
+    window.addEventListener('touchmove', function(event) {
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+        event.preventDefault();
+      }
+    }, { passive: false });
+
+    const updateVH = () => {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    };
+
+    window.addEventListener('resize', updateVH);
+    window.addEventListener('orientationchange', updateVH);
+
+    // Initial call to set --vh
+    updateVH();
   </script>
 </body>
 </html>
