@@ -4,45 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Calc</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json"> <!-- Correct the path -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png"> <!-- Correct the path -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      height: 100vh;
+    html, body {
+      height: 100%;
       overflow: hidden;
+    }
+    .form-container {
+      height: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      touch-action: manipulation;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 20px;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
     }
     form {
       width: 100%;
-      padding: 20px;
+      max-width: 400px;
       background-color: #fff;
+      padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: fixed;
-      top: 10%;
-      transform: translateY(-10%);
     }
     label, input[type="number"], input[type="button"] {
-      display: block;
       width: 100%;
       margin-top: 10px;
     }
@@ -50,15 +42,13 @@
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      box-sizing: border-box;
-      inputmode: numeric;
       font-size: 16px;
+      box-sizing: border-box;
       height: 40px;
-      outline: none;
     }
     input[type="number"]:focus {
-      outline: none;
       border-color: #4CAF50;
+      outline: none;
     }
     input[type="button"] {
       background-color: #4CAF50;
@@ -83,18 +73,20 @@
   </style>
 </head>
 <body>
-  <form id="inputForm">
-    <h1>Quick Entry</h1>
-    <label for="num1">Expected Blows Per Hour:</label>
-    <input type="number" id="num1" name="num1" placeholder="Enter Expected" inputmode="numeric">
-    <label for="num2">Actual Blows Per Hour:</label>
-    <input type="number" id="num2" name="num2" placeholder="Enter Actual" inputmode="numeric">
-    <label for="num3">Downtime Minutes:</label>
-    <input type="number" id="num3" name="num3" placeholder="Enter Downtime" inputmode="numeric">
-    <input type="button" value="Calculate" onclick="calculate()">
-    <div id="result"></div>
-    <div id="loading">Calculating...</div>
-  </form>
+  <div class="form-container">
+    <form id="inputForm">
+      <h1>Quick Entry</h1>
+      <label for="num1">Expected Blows Per Hour:</label>
+      <input type="number" id="num1" name="num1" placeholder="Enter Expected" inputmode="numeric">
+      <label for="num2">Actual Blows Per Hour:</label>
+      <input type="number" id="num2" name="num2" placeholder="Enter Actual" inputmode="numeric">
+      <label for="num3">Downtime Minutes:</label>
+      <input type="number" id="num3" name="num3" placeholder="Enter Downtime" inputmode="numeric">
+      <input type="button" value="Calculate" onclick="calculate()">
+      <div id="result"></div>
+      <div id="loading">Calculating...</div>
+    </form>
+  </div>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -128,8 +120,17 @@
       }, 500);
     }
 
-    // JavaScript to handle focus event and prevent default behavior
-    document.querySelectorAll('input[type="number"]').forEach((element) => {
+    // Adjust height for iOS devices to handle keyboard
+    const updateVH = () => {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    };
+
+    window.addEventListener('resize', updateVH);
+    window.addEventListener('orientationchange', updateVH);
+
+    updateVH();
+
+    document.querySelectorAll('input, textarea').forEach((element) => {
       element.addEventListener('focus', (event) => {
         setTimeout(() => {
           event.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -137,26 +138,17 @@
       });
     });
 
-    document.querySelectorAll('input[type="number"]').forEach((element) => {
+    document.querySelectorAll('input, textarea').forEach((element) => {
       element.addEventListener('blur', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
 
     window.addEventListener('touchmove', function(event) {
-      if (document.activeElement.tagName === 'INPUT') {
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
         event.preventDefault();
       }
     }, { passive: false });
-
-    // Handle viewport height dynamically
-    const updateVH = () => {
-      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-    };
-
-    window.addEventListener('resize', updateVH);
-    window.addEventListener('orientationchange', updateVH);
-    updateVH();
   </script>
 </body>
 </html>
