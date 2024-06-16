@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Calc</title>
-  <link rel="manifest" href="manifest.json"> <!-- Correct the path -->
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png"> <!-- Correct the path -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
@@ -127,6 +127,14 @@
         document.getElementById('loading').style.display = 'none';
       }, 500);
     }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const downtimeInput = document.getElementById('num3');
+      downtimeInput.addEventListener('focus', (e) => {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For other browsers
+      });
+    });
   </script>
 </body>
 </html>
