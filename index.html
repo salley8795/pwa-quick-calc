@@ -10,14 +10,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
   <style>
-    html, body {
-      height: 100%;
-      overflow: hidden;
-    }
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
       margin: 0;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -29,7 +27,7 @@
       color: #333;
       margin-bottom: 20px;
     }
-    .form-container {
+    form {
       width: 100%;
       padding: 20px;
       background-color: #fff;
@@ -85,7 +83,7 @@
   </style>
 </head>
 <body>
-  <div class="form-container">
+  <form id="inputForm">
     <h1>Quick Entry</h1>
     <label for="num1">Expected Blows Per Hour:</label>
     <input type="number" id="num1" name="num1" placeholder="Enter Expected" inputmode="numeric">
@@ -96,7 +94,7 @@
     <input type="button" value="Calculate" onclick="calculate()">
     <div id="result"></div>
     <div id="loading">Calculating...</div>
-  </div>
+  </form>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -130,32 +128,34 @@
       }, 500);
     }
 
-    // Prevent form from moving on focus
-    const form = document.querySelector('.form-container');
-    const inputs = form.querySelectorAll('input[type="number"]');
+    // JavaScript to handle focus event and prevent default behavior
+    document.querySelectorAll('input[type="number"]').forEach((element) => {
+      element.addEventListener('focus', (event) => {
+        setTimeout(() => {
+          event.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      });
+    });
 
-    inputs.forEach(input => {
-      input.addEventListener('focus', () => {
-        form.style.position = 'fixed';
-        form.style.top = '10%';
-        form.style.transform = 'translateY(-10%)';
+    document.querySelectorAll('input[type="number"]').forEach((element) => {
+      element.addEventListener('blur', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
 
     window.addEventListener('touchmove', function(event) {
-      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+      if (document.activeElement.tagName === 'INPUT') {
         event.preventDefault();
       }
     }, { passive: false });
 
+    // Handle viewport height dynamically
     const updateVH = () => {
       document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     };
 
     window.addEventListener('resize', updateVH);
     window.addEventListener('orientationchange', updateVH);
-
-    // Initial call to set --vh
     updateVH();
   </script>
 </body>
