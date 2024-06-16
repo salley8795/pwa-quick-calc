@@ -1,44 +1,52 @@
-const CACHE_NAME = 'pwa-cache-v1';
-const urlsToCache = [
+const cacheName = 'quick-calc-cache-v2';
+const resourcesToPrecache = [
   '/',
   '/index.html',
-  '/offline.html',
+  '/quick-calc.html',
+  '/form2.html',
+  '/dashboard.html',
   '/manifest.json',
-  '/icons/icon-128x128.png',
-  '/icons/icon-144x144.png',
-  '/icons/icon-152x152.png',
-  '/icons/icon-180x180.png',
   '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  '/icons/icon-512x512.png',
+  '/styles.css', // if you have a separate CSS file
+  '/script.js', // if you have a separate JS file
+  '/offline.html'
 ];
 
 self.addEventListener('install', event => {
+  console.log('Service worker install event!');
   event.waitUntil(
-    caches.open(CACHE_NAME)
+    caches.open(cacheName)
       .then(cache => {
-        return cache.addAll(urlsToCache);
+        return cache.addAll(resourcesToPrecache);
       })
   );
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    fetch(event.request)
-      .catch(() => caches.match(event.request).then(response => response || caches.match('/offline.html')))
-  );
-});
-
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
+  console.log('Service worker activate event!');
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
+        cacheNames.map(cache => {
+          if (cache !== cacheName) {
+            return caches.delete(cache);
           }
         })
       );
     })
+  );
+});
+
+self.addEventListener('fetch', event => {
+  console.log('Fetch intercepted for:', event.request.url);
+  event.respondWith(
+    caches.match(event.request)
+      .then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        return fetch(event.request);
+      })
   );
 });

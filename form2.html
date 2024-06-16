@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form 2</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Quick Calc">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    label, input[type="number"], input[type="text"], input[type="button"] {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+    }
+    input[type="number"], input[type="text"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+      height: 40px;
+      outline: none;
+    }
+    input[type="button"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 18px;
+    }
+    input[type="button"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <form id="form2">
+    <h1>Form 2</h1>
+    <label for="machine1">Machine 1 Data:</label>
+    <input type="number" id="machine1" name="machine1" placeholder="Enter Data">
+    <label for="machine2">Machine 2 Data:</label>
+    <input type="number" id="machine2" name="machine2" placeholder="Enter Data">
+    <label for="comments">Comments:</label>
+    <input type="text" id="comments" name="comments" placeholder="Enter Comments">
+    <input type="button" value="Submit">
+  </form>
+</body>
+</html>
