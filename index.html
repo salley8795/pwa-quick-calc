@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Landing Page</title>
-  <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <title>Quick Calc</title>
+  <link rel="manifest" href="manifest.json"> <!-- Correct path -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png"> <!-- Correct path -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
@@ -14,35 +14,42 @@
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
       margin: 0;
-      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      height: 100vh;
     }
     h1 {
       text-align: center;
       color: #333;
+      margin-bottom: 20px;
     }
-    .button {
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
       background-color: #4CAF50;
       color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 10px;
-      cursor: pointer;
-      border-radius: 4px;
       border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
   <h1>Welcome to Quick Calc</h1>
-  <a href="quick-calc.html" class="button">Quick Calc</a>
-  <a href="form2.html" class="button">Form 2</a>
-  <a href="dashboard.html" class="button">Dashboard</a>
+  <div class="button-container">
+    <button onclick="location.href='quick-calc.html'">Quick Calc</button>
+    <button onclick="location.href='form2.html'">Form 2</button>
+    <button onclick="location.href='dashboard.html'">Dashboard</button>
+  </div>
 </body>
 </html>

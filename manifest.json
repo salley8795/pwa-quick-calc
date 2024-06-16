@@ -1,7 +1,7 @@
 {
   "name": "Quick Calc",
   "short_name": "QuickCalc",
-  "start_url": "index.html",
+  "start_url": "/pwa-quick-calc/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
@@ -47,6 +47,11 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ]
 }
