@@ -131,6 +131,7 @@
     document.addEventListener('DOMContentLoaded', (event) => {
       const downtimeInput = document.getElementById('num3');
       downtimeInput.addEventListener('focus', (e) => {
+        e.preventDefault(); // Prevent default scroll behavior
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For other browsers
       });
