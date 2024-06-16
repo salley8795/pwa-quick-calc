@@ -37,9 +37,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: fixed;
-      top: 10%; /* Adjusted to place the form at the top */
-      transform: translateY(-10%);
     }
     label, input[type="number"], input[type="button"] {
       display: block;
@@ -95,6 +92,7 @@
     <div id="result"></div>
     <div id="loading">Calculating...</div>
   </form>
+  <input type="button" value="Return to Menu" onclick="location.href='index.html'">
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
