@@ -1,52 +1,50 @@
-const cacheName = 'quick-calc-cache-v2';
-const resourcesToPrecache = [
+const cacheName = 'pwa-quick-calc-v1';
+const filesToCache = [
   '/',
   '/index.html',
   '/quick-calc.html',
   '/form2.html',
   '/dashboard.html',
   '/manifest.json',
+  '/icons/icon-128x128.png',
+  '/icons/icon-144x144.png',
+  '/icons/icon-152x152.png',
+  '/icons/icon-180x180.png',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
-  '/styles.css', // if you have a separate CSS file
-  '/script.js', // if you have a separate JS file
-  '/offline.html'
+  '/icons/maskable-icon-192x192.png',
+  '/icons/maskable-icon-512x512.png',
+  '/offline.html',
 ];
 
-self.addEventListener('install', event => {
-  console.log('Service worker install event!');
+self.addEventListener('install', (event) => {
+  console.log('[Service Worker] Install event');
   event.waitUntil(
-    caches.open(cacheName)
-      .then(cache => {
-        return cache.addAll(resourcesToPrecache);
-      })
-  );
-});
-
-self.addEventListener('activate', event => {
-  console.log('Service worker activate event!');
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== cacheName) {
-            return caches.delete(cache);
-          }
-        })
-      );
+    caches.open(cacheName).then((cache) => {
+      console.log('[Service Worker] Caching all: app shell and content');
+      return cache.addAll(filesToCache).catch((error) => {
+        console.error('Failed to cache', error);
+        filesToCache.forEach((file) => {
+          fetch(file).then((response) => {
+            if (!response.ok) {
+              console.error('Failed to fetch and cache file:', file);
+            }
+          }).catch((fetchError) => {
+            console.error('Fetch error:', fetchError);
+          });
+        });
+      });
     })
   );
 });
 
-self.addEventListener('fetch', event => {
-  console.log('Fetch intercepted for:', event.request.url);
+self.addEventListener('fetch', (event) => {
+  console.log('[Service Worker] Fetch event for ', event.request.url);
   event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request);
-      })
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    }).catch(() => {
+      return caches.match('/offline.html');
+    })
   );
 });
