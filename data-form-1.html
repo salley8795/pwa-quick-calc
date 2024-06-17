@@ -1,135 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Form 1</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Quick Calc">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    form {
-      width: 100%;
-      max-width: 400px;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-    }
-    label {
-      margin-top: 10px;
-    }
-    input[type="text"], input[type="number"], textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      width: 100%;
-      margin-top: 5px;
-    }
-    input[type="button"], input[type="submit"] {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      cursor: pointer;
-      border-radius: 4px;
-      font-size: 18px;
-      margin-top: 20px;
-    }
-    input[type="button"]:hover, input[type="submit"]:hover {
-      background-color: #45a049;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Form 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        input[type="number"], input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+            margin: 0;
+        }
+        .top-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .top-inputs div {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .top-inputs div:last-child {
+            margin-right: 0;
+        }
+    </style>
 </head>
 <body>
-  <form id="dataForm1" onsubmit="performCalculations(event)">
-    <h1>Data Form 1</h1>
-    <label for="machineID">Machine ID:</label>
-    <input type="text" id="machineID" name="machineID">
-
-    <label for="operatorName">Operator Name:</label>
-    <input type="text" id="operatorName" name="operatorName">
-
-    <label for="shift">Shift:</label>
-    <input type="text" id="shift" name="shift">
-
-    <label for="field1">Data Field 1:</label>
-    <input type="number" id="field1" name="field1" inputmode="numeric">
-
-    <label for="field2">Data Field 2:</label>
-    <input type="number" id="field2" name="field2" inputmode="numeric">
-
-    <label for="field3">Data Field 3:</label>
-    <input type="number" id="field3" name="field3" inputmode="numeric">
-
-    <label for="field4">Data Field 4:</label>
-    <input type="number" id="field4" name="field4" inputmode="numeric">
-
-    <label for="field5">Data Field 5:</label>
-    <input type="number" id="field5" name="field5" inputmode="numeric">
-
-    <label for="field6">Data Field 6:</label>
-    <input type="number" id="field6" name="field6" inputmode="numeric">
-
-    <h2>Calculated Fields</h2>
-
-    <label for="calculation1">Calculation 1:</label>
-    <input type="text" id="calculation1" name="calculation1" readonly>
-
-    <label for="calculation2">Calculation 2:</label>
-    <input type="text" id="calculation2" name="calculation2" readonly>
-
-    <label for="calculation3">Calculation 3:</label>
-    <input type="text" id="calculation3" name="calculation3" readonly>
-
-    <label for="comments">Comments:</label>
-    <textarea id="comments" name="comments" rows="4"></textarea>
-
-    <input type="submit" value="Submit">
-    <input type="button" value="Return to Menu" onclick="location.href='index.html';">
-  </form>
-
-  <script>
-    function performCalculations(event) {
-      event.preventDefault();
-
-      // Get field values
-      const field1 = parseFloat(document.getElementById('field1').value) || 0;
-      const field2 = parseFloat(document.getElementById('field2').value) || 0;
-      const field3 = parseFloat(document.getElementById('field3').value) || 0;
-      const field4 = parseFloat(document.getElementById('field4').value) || 0;
-      const field5 = parseFloat(document.getElementById('field5').value) || 0;
-      const field6 = parseFloat(document.getElementById('field6').value) || 0;
-
-      // Perform calculations
-      const calculation1 = field1 + field2 + field3; // Example calculation
-      const calculation2 = field4 * field5 * field6; // Example calculation
-      const calculation3 = (field1 + field2 + field3 + field4 + field5 + field6) / 6; // Example calculation
-
-      // Set calculation results
-      document.getElementById('calculation1').value = calculation1.toFixed(2);
-      document.getElementById('calculation2').value = calculation2.toFixed(2);
-      document.getElementById('calculation3').value = calculation3.toFixed(2);
-    }
-  </script>
+    <div class="container">
+        <h1>Data Form 1</h1>
+        <div class="top-inputs">
+            <div>
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date">
+            </div>
+            <div>
+                <label for="partNumber">Part Number:</label>
+                <input type="text" id="partNumber" name="partNumber">
+            </div>
+            <div>
+                <label for="expectedBlows">Expected Blows Per Hour:</label>
+                <input type="number" id="expectedBlows" name="expectedBlows">
+            </div>
+            <div>
+                <label for="adjustedBlows">Adj Expected Blows Per Hour:</label>
+                <input type="number" id="adjustedBlows" name="adjustedBlows">
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Total Actual Blows Per Hour</th>
+                    <th>Downtime</th>
+                    <th>Expected Efficiency</th>
+                    <th>Adj Efficiency</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example rows for each hour -->
+                <tr>
+                    <td>5 - 6</td>
+                    <td><input type="number" placeholder="Enter Actual Blows"></td>
+                    <td><input type="number" placeholder="Enter Downtime"></td>
+                    <td><input type="number" placeholder="Enter Expected Efficiency"></td>
+                    <td><input type="number" placeholder="Enter Adj Efficiency"></td>
+                    <td><input type="text" placeholder="Enter Comments"></td>
+                </tr>
+                <tr>
+                    <td>6 - 7</td>
+                    <td><input type="number" placeholder="Enter Actual Blows"></td>
+                    <td><input type="number" placeholder="Enter Downtime"></td>
+                    <td><input type="number" placeholder="Enter Expected Efficiency"></td>
+                    <td><input type="number" placeholder="Enter Adj Efficiency"></td>
+                    <td><input type="text" placeholder="Enter Comments"></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        <button onclick="submitData()">Submit</button>
+    </div>
+    <script>
+        function submitData() {
+            // Function to handle form submission
+            alert('Data submitted!');
+        }
+    </script>
 </body>
 </html>
