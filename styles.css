@@ -46,6 +46,11 @@ table th {
   color: #333;
 }
 
+table th:nth-child(1),
+table td:nth-child(1) {
+  width: 100px; /* Adjust this width as needed */
+}
+
 input[type="text"],
 input[type="number"] {
   width: 50px; /* Adjust this width as needed */
