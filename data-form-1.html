@@ -8,24 +8,25 @@
 </head>
 <body>
     <div class="container">
-        <h1>Data Form 1</h1>
-        <div class="input-group">
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date">
+        <div class="static-container">
+            <h1>Data Form 1</h1>
+            <div class="input-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date">
+            </div>
+            <div class="input-group">
+                <label for="partNumber">Part Number:</label>
+                <input type="text" id="partNumber" name="partNumber">
+            </div>
+            <div class="input-group">
+                <label for="expectedBlows">Expected Blows Per Hour:</label>
+                <input type="number" id="expectedBlows" name="expectedBlows">
+            </div>
+            <div class="input-group">
+                <label for="adjExpectedBlows">Adj Expected Blows Per Hour:</label>
+                <input type="number" id="adjExpectedBlows" name="adjExpectedBlows">
+            </div>
         </div>
-        <div class="input-group">
-            <label for="partNumber">Part Number:</label>
-            <input type="text" id="partNumber" name="partNumber">
-        </div>
-        <div class="input-group">
-            <label for="expectedBlows">Expected Blows Per Hour:</label>
-            <input type="number" id="expectedBlows" name="expectedBlows">
-        </div>
-        <div class="input-group">
-            <label for="adjExpectedBlows">Adj Expected Blows Per Hour:</label>
-            <input type="number" id="adjExpectedBlows" name="adjExpectedBlows">
-        </div>
-
         <div class="table-container">
             <table class="data-table">
                 <tr>
@@ -103,7 +104,7 @@
                 <tr>
                     <td>1 - 2</td>
                     <td><input type="number" id="actualBlows13" name="actualBlows13"></td>
-                    <td><input type="number" id="downtime13" name="downtime13"></td>
+                    <td><input type of="number" id="downtime13" name="downtime13"></td>
                     <td><input type="number" id="efficiency13" name="efficiency13"></td>
                     <td><input type="number" id="adjEfficiency13" name="adjEfficiency13"></td>
                     <td><input type="text" id="comments13" name="comments13"></td>
@@ -134,11 +135,9 @@
                 </tr>
             </table>
         </div>
-
         <button onclick="submitForm()">Submit</button>
         <button onclick="location.href='index.html'">Return to Menu</button>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
