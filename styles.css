@@ -11,20 +11,37 @@ body {
   box-sizing: border-box;
 }
 
-h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-form {
+.container {
   width: 100%;
   max-width: 800px;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow-x: auto; /* Ensure form can scroll horizontally */
+  overflow-x: auto; /* Ensure container can scroll horizontally */
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: calc(100% - 12px); /* Adjust width to ensure it fits within the container */
+  padding: 5px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .table-container {
@@ -32,27 +49,27 @@ form {
   overflow-x: auto; /* Ensure table container can scroll horizontally */
 }
 
-table {
+table.data-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
-table th,
-table td {
+table.data-table th,
+table.data-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
   white-space: nowrap; /* Prevent text wrapping for better fit */
 }
 
-table th:nth-child(1),
-table td:nth-child(1) {
+table.data-table th:nth-child(1),
+table.data-table td:nth-child(1) {
   width: 150px; /* Ensure time column is visible */
 }
 
-input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="text"] {
   width: 100%; /* Make input fields responsive */
   padding: 5px;
   margin: 0;
@@ -69,8 +86,7 @@ textarea {
   border-radius: 4px;
 }
 
-input[type="button"],
-input[type="submit"] {
+button {
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -78,20 +94,9 @@ input[type="submit"] {
   cursor: pointer;
   border-radius: 4px;
   font-size: 16px;
+  margin: 5px;
 }
 
-input[type="button"]:hover,
-input[type="submit"]:hover {
+button:hover {
   background-color: #45a049;
-}
-
-#result,
-#loading {
-  text-align: center;
-  margin-top: 10px;
-  color: #333;
-}
-
-#loading {
-  display: none;
 }
