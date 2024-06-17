@@ -100,3 +100,9 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+input[type="number"], input[type="text"], input[type="date"] {
+    width: 60px; /* Adjust the width as needed */
+    padding: 5px;
+    box-sizing: border-box;
+}
