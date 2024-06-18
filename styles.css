@@ -74,3 +74,21 @@ button:hover {
 h1 {
     margin-bottom: 20px;
 }
+
+/* Styles for the landing page buttons */
+.landing-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.landing-button:hover {
+    background-color: #0056b3;
+}

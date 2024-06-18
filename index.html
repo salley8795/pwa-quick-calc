@@ -9,11 +9,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quick Calc">
+  <link rel="stylesheet" href="styles.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -23,36 +21,24 @@
     h1 {
       text-align: center;
       color: #333;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      margin-top: 50px;
+      margin-bottom: 40px;
     }
     .button-container {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 20px;
       align-items: center;
       width: 100%;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
     }
   </style>
 </head>
 <body>
   <h1>Welcome to Quick Calc</h1>
   <div class="button-container">
-    <button onclick="location.href='quick-calc.html'">Quick Calc</button>
-    <button onclick="location.href='data-form-1.html'">Data Form 1</button>
-    <button onclick="location.href='dashboard.html'">Dashboard</button>
+    <button class="landing-button" onclick="location.href='quick-calc.html'">Quick Calc</button>
+    <button class="landing-button" onclick="location.href='data-form-1.html'">Data Form 1</button>
+    <button class="landing-button" onclick="location.href='dashboard.html'">Dashboard</button>
   </div>
 </body>
 </html>
