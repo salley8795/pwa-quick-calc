@@ -15,7 +15,8 @@ const assetsToCache = [
   './icons/maskable-icon-192x192.png',
   './icons/maskable-icon-512x512.png',
   './styles.css', // if you have a separate CSS file
-  './scripts.js'  // if you have a separate JS file
+  './scripts.js',  // if you have a separate JS file
+  './offline.html'
 ];
 
 self.addEventListener('install', event => {
@@ -46,6 +47,8 @@ self.addEventListener('fetch', event => {
       .then(response => {
         return response || fetch(event.request);
       })
+      .catch(() => {
+        return caches.match('./offline.html');
+      })
   );
 });
-

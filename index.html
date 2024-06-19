@@ -31,6 +31,18 @@
       align-items: center;
       width: 100%;
     }
+    .landing-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .landing-button:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -40,5 +52,16 @@
     <button class="landing-button" onclick="location.href='data-form-1.html'">Data Form 1</button>
     <button class="landing-button" onclick="location.href='dashboard.html'">Dashboard</button>
   </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('ServiceWorker registration failed: ', error);
+        });
+    }
+  </script>
 </body>
 </html>
