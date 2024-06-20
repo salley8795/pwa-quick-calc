@@ -2,7 +2,7 @@ const cacheName = 'pwa-cache-v1';
 const assetsToCache = [
   './index.html',
   './quick-calc.html',
-  './data-form-1.html',
+  './hourly-entry.html',
   './dashboard.html',
   './manifest.json',
   './icons/apple-touch-icon.png',
